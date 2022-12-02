@@ -45,9 +45,21 @@ class EventsController extends AbstractController
 
     #edit
     #[Route('/edit/{id}', name: 'edit')]
-    public function edit($id): Response
+    public function edit($id, ManagerRegistry $doctrine, Request $request): Response
     {
-        return $this->render('events/edit.html.twig', []);
+        $event = $doctrine->getRepository(Events::class)->find($id);
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $event = $form->getData();
+            $em = $doctrine->getManager();
+            $em->persist($event);
+            $em->flush();
+            return $this->redirectToRoute('events');
+        }
+        return $this->render('events/edit.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     #details
