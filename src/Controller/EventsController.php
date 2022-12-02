@@ -64,15 +64,27 @@ class EventsController extends AbstractController
 
     #details
     #[Route('/details/{id}', name: 'details')]
-    public function details($id): Response
+    public function details($id, ManagerRegistry $doctrine): Response
     {
-        return $this->render('events/details.html.twig', []);
+        $event = $doctrine->getRepository(Events::class)->find($id);
+        $fk_organizer = $event->getFkOrganizer()->getId();
+        $organizer = $doctrine->getRepository(Organisers::class)->find($fk_organizer);
+
+        return $this->render('events/details.html.twig', [
+            'event' => $event,
+            'organizer' => $organizer,
+
+        ]);
     }
 
     #delete
     #[Route('/delete/{id}', name: 'detelete')]
-    public function delete($id): Response
+    public function delete($id, ManagerRegistry $doctrine): Response
     {
-        return $this->render('events/delete.html.twig', []);
+        $event = $doctrine->getRepository(Events::class)->find($id);
+        $em = $doctrine->getManager();
+        $em->remove($event);
+        $em->flush();
+        return $this->redirectToRoute('events');
     }
 }

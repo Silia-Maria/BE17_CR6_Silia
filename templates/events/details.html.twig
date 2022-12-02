@@ -1,1 +1,32 @@
-{% extends 'base.html.twig' %} {% block title %}Hello EventsController!{% endblock %} {% block body %} {% endblock %}
+{% extends 'base.html.twig' %} {% block title %}Hello EventsController!{% endblock %} {% block body %}
+
+<div class="details-hero">
+    <div class="details-heading">
+        <h1 class="text-light">{{event.name}}</h1>
+    </div>
+</div>
+<div class="container mt-5">
+
+    <div>{{event.description}}</div>
+
+    <div class="mt-5">
+        <img src="{{event.image}}" width="100%" class="details-image">
+    </div>
+
+    <div>
+        {% if event.type == "art" %}
+        <h4><i class="fa-solid fa-landmark me-2"></i>{{organizer.name}}</h4>
+        {% elseif event.type == "theater" %}
+        <h4><i class="fa-solid fa-masks-theater me-2"></i>{{organizer.name}}</h4>
+        {% else %}
+        <h4><i class="fa-solid fa-music me-2"></i>{{organizer.name}}</h4>
+        {% endif %}
+
+        <p>{{organizer.street}}</p>
+        <p>{{organizer.city}}</p>
+        <p><i class="fa-regular fa-envelope me-2"></i>{{organizer.email}}</p>
+        <p><i class="fa-solid fa-phone me-2"></i>{{organizer.number}}</p>
+    </div>
+</div>
+
+{% endblock %}
