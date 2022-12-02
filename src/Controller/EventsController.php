@@ -2,17 +2,19 @@
 
 namespace App\Controller;
 
+use App\Form\EventType;
 use App\Entity\Events;
 use App\Entity\Organisers;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class EventsController extends AbstractController
 {
     # index
-    #[Route('/events', name: 'app_events')]
+    #[Route('/events', name: 'events')]
     public function index(ManagerRegistry $doctrine): Response
     {
         $events = $doctrine->getRepository(Events::class)->findAll();
@@ -23,9 +25,22 @@ class EventsController extends AbstractController
 
     #create
     #[Route('/create', name: 'create')]
-    public function create(): Response
+    public function create(ManagerRegistry $doctrine, Request $request): Response
     {
-        return $this->render('events/create.html.twig', []);
+        $event = new Events();
+        $form = $this->createForm(EventType::class, $event);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $event = $form->getData();
+            $em = $doctrine->getManager();
+            $em->persist($event);
+            $em->flush();
+            return $this->redirectToRoute('events');
+        }
+
+        return $this->render('events/create.html.twig', [
+            'form' => $form,
+        ]);
     }
 
     #edit
