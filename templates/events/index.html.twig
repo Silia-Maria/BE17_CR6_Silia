@@ -14,14 +14,13 @@
                 <img src="{{event.image}}" class="card-img-top" height="300">
                 <div class="card-body">
                     <div class="d-flex justify-content-between">
-                        <h5 class="card-title">{{event.name}}</h5>
-
+                        <a href="/details/{{event.id}}" class="mb-3">
+                            <h5 class="card-title">{{event.name}}</h5>
+                        </a>
+                        <!--Buttons-->
                         <div class="dropdown">
-
                             <i class="fa-solid fa-ellipsis-vertical dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"></i>
-
                             <ul class="dropdown-menu dropstart">
-                                <li><a class="dropdown-item" href="/details/{{event.id}}">Details</a></li>
                                 <li> <a class="dropdown-item" href="/edit/{{event.id}}">Edit</a></li>
                                 <li><a class="dropdown-item" href="/delete/{{event.id}}">Delete</a></li>
                             </ul>
@@ -29,14 +28,7 @@
 
                     </div>
                     <p class="card-text">{{event.date | date("d M. Y")}}</p>
-                    <!--Buttons-->
 
-                    {#
-                    <div class="d-flex justify-content-between">
-                        <a href="/details/{{event.id}}"><button class="btn-card">Details</button></a>
-                        <a href="/edit/{{event.id}}"><button class="btn-card">Edit</button></a>
-                        <a href="/delete/{{event.id}}"><button class="btn-card">Delete</button></a>
-                    </div> #}
                 </div>
             </div>
         </div>

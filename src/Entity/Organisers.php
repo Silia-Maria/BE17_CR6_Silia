@@ -28,6 +28,9 @@ class Organisers
     #[ORM\Column(length: 255)]
     private ?string $number = null;
 
+    #[ORM\Column(length: 1000, nullable: true)]
+    private ?string $iframe = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,6 +92,18 @@ class Organisers
     public function setNumber(string $number): self
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function getIframe(): ?string
+    {
+        return $this->iframe;
+    }
+
+    public function setIframe(?string $iframe): self
+    {
+        $this->iframe = $iframe;
 
         return $this;
     }
