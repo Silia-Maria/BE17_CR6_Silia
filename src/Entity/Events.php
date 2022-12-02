@@ -38,6 +38,10 @@ class Events
     #[ORM\Column(length: 255)]
     private ?string $type = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Organisers $fk_organizer = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +139,18 @@ class Events
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getFkOrganizer(): ?Organisers
+    {
+        return $this->fk_organizer;
+    }
+
+    public function setFkOrganizer(?Organisers $fk_organizer): self
+    {
+        $this->fk_organizer = $fk_organizer;
 
         return $this;
     }
