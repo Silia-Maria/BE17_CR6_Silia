@@ -61,3 +61,16 @@ img {
     margin: 2em auto;
     font-size: 120%;
 }
+
+
+/* Form Edit/create */
+
+.form-container {
+    margin-top: 5em;
+    width: 70%;
+}
+
+label {
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+}

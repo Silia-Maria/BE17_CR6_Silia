@@ -59,6 +59,7 @@ class EventsController extends AbstractController
         }
         return $this->render('events/edit.html.twig', [
             'form' => $form,
+            'event' => $event,
         ]);
     }
 
