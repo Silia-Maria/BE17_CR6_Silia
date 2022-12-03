@@ -11,9 +11,9 @@
     <hr>
     <div class="description">{{event.description}}</div>
 
-    <div class="d-flex justify-content-between mt-5">
+    <div class="d-flex justify-content-around mt-5">
         <!--Info-->
-        <div>
+        <div class="align-self-center">
             {% if event.type == "art " %}
             <h4><i class="fa-solid fa-landmark me-2 "></i>{{organizer.name}}</h4>
             {% elseif event.type == "theater " %}
